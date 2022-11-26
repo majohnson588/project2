@@ -1,0 +1,133 @@
+死循环实例
+int main()
+{
+    int i = 0;
+    int arr[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    //VC6.0 环境下 <=10 就死循环了
+    //gcc 编辑器 <=11 就死循环了
+    //VS2013      <=12 死循环
+    for(i = 0; i <= 11; i++)
+   {
+           printf("hehe\n");
+           arr[ i ] = 0;
+    }
+    system("pause");
+    return 0;
+}
+
+结构的声明
+    struct tag
+    {
+     member-list;
+    }variable-list;
+  //如描述一个学生-一些数据
+  //名字
+  //年龄
+  //电话
+  //性别
+
+  //struct 结构体关键字    Stu - 结构体标签    struct Stu - 结构体类型
+  struct Stu
+  {
+        //成员变量
+        char name[20];
+        short age;                                                  int                                        图纸
+        char tele[12];              定义结构体类型
+        char sex[5];
+  }s1,s2,s3;//s1,s2,s3                 是三个全局的结构体变量                           盖房子
+ 
+typedef struct Stu
+{
+    //成员变量
+    char name[20];//名字
+    short age;//年龄
+    char tele[12];//电话
+    char sex[5];//性别
+    char id[20];//学号
+ }s2;//类型(分号不能丢)
+
+ int main()                                                                                    
+{
+ struct Stu s1 = {"旺财", 20, "15249287076", "保密"};                                           创建结构体变量
+ Stu s2 = {"张三", 20 , "15249287076", "男"};//局部变量  
+ return 0;                                                        int a = 10                                 房子       
+}
+
+结构成员的类型
+结构的成员可以是标量、数组、指针，甚至是其他结构体
+
+结构体变量的定义和初始化
+有了结构体类型，那如何定义变量，其实很简单
+struct Point
+{
+        int x;
+        int y;
+}p1;                                             //声明类型的同时定义变量p1
+struct Point p2;                           //定义结构体变量p2
+
+//初始化：定义变量的同时赋初值。
+struct Point p3  =  {x , y};
+
+struct Stu                                    //类型声明
+
+struct S
+{
+      int a;
+      char c;
+      char arr[20];
+      double d;
+};
+
+struct T
+{
+      char ch[10];
+      struct S s;
+      char *pc;
+};
+
+int main()
+{
+      char arr[ ] = "hello bit\n";
+      struct T t = {"hehe",  {100, 'w', "hello world", 3.14}, arr};//结构体的嵌套
+      printf("%s\n", t. ch);//hehe
+      printf("%s\n", t. s. arr);//hello world
+      printf("%lf\n", t .s .d);//3.14
+      printf("%s\n", t .pc);//hello bit
+      return 0;
+}
+
+结构体的访问
+typedef struct Stu
+{
+      //成员变量
+      char name[20];
+      short age;
+      char tele[12];
+      char sex[5];
+}Stu;//重命名，否则是struct Stu
+
+void Print1(Stu tmp)
+{
+    printf("name: %s\n", tmp.name);
+    printf("age:    %d\n", tmp.age);
+    printf("tale:    %s\n", tmp.tele);
+    printf("sex:    %s\n", tmp.sex);
+}
+void Print2(Stu* ps)
+{
+    printf("name: %s\n", ps->name);
+    printf("age:   %d\n", ps->age);
+    printf("tale:   %s\n", ps->tele);
+    printf("sex:   %s\n", ps->sex);
+}      
+int main()
+{
+      Stu s = {"李四", 40, "15598886688", "男"};
+      //打印结构体数据
+      //Print1和Print2 哪个更好？
+      Print1(s);
+      Print2(&s);//用指针接收
+      //Print2更好，函数传参时，参数是需要压栈的。如果传递一个结构体对象的时候，结构体过大，参数压栈的系统开销比较大，所以会导致性能的下降
+     //结论：结构体传参的时候，要传结构体的地址
+      return 0;
+}
