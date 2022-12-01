@@ -271,3 +271,19 @@ int main()
         }
         return 0;
   }
+  output:
+  hi
+  hello
+  
+  Exercise2:
+  //对以下指针数组和数组指针进行解引用操作
+  int main()
+  {
+        char* arr[5];
+        char* (*pa)[5] = &arr;
+        
+        int arr2[10] = { 0 };
+        int (*pa2)[10] = &arr2;
+        
+        return 0;
+   }
