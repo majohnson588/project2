@@ -245,3 +245,29 @@ int main()
    }
    答案是死循环
   
+  指针进阶
+  Exercise1:
+  int main()
+  {
+        char arr1[] = "abcdef";
+        char arr2[] = "abcdef";
+        char* p1 = "abcdef";
+        char *p2 = "abcdef";
+        if(arr1 == arr2)
+        {
+            printf("hello\n");
+        }
+        else
+        {
+            printf("hi\n");
+        }
+        if(p1 == p2)
+        {
+            printf("hello\n");
+        }
+        else
+        {
+            printf("hi");
+        }
+        return 0;
+  }
