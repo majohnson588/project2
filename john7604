@@ -487,3 +487,10 @@ int main()
      printf("%d\n",diff);
      return 0;
  }
+ 
+ Practice4:
+ 打印整数二进制的奇数位和偶数位
+ int main()
+ {
+ 
+ 
