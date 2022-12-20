@@ -377,6 +377,12 @@ void print2(int (*p)[5], int c, int r)
             printf("%d ",*(*(p+i)+j));
             //printf("%d ", p[i][j]);
         }
+        //arr[i]
+        //*(arr+i)
+        //
+        //arr[i][j]
+        //*(arr+i)[j]
+        //*(*(arr+i)+j)
          printf("\n");
     }
 }
