@@ -1,4 +1,6 @@
 死循环实例
+int和arr放在栈区存储，栈区使用习惯是先使用高地址空间，再使用低地址空间，
+而arr中元素的存储是由低到高变化的，而越界访问有可能覆盖到i，有死循环的可能
 int main()
 {
     int i = 0;
@@ -714,3 +716,247 @@ int main()
     }
     return 0;
 }
+
+Practice12:
+下面程序要求输出结构体成员a的数据以下不能填入横线处的内容是
+#include <stdio.h>
+struct
+{
+    int a;
+    int b;
+};
+int main()
+{
+    struct S a, *p = &a;
+    a.a = 99;
+    printf("%d\n",_______);
+    return 0;
+}
+题目内容
+A. a.a
+B. *p.a//err,"."优先级高于"*"
+C. p->a
+D. (*p).a
+
+Practice13:
+求下列输出结果
+#include<stdio.h>
+struct stu
+{
+    int num;
+    char name[10];
+    int age;
+};
+void fun(struct stu* p)
+{
+    printf("%s\n",(*p).name);
+}
+int main()
+{
+    struct stu students[3] = { {9801,"zhang",20},
+                               {9802,"wang",19};
+                               {9803,"zhao",18}
+    };
+    fun(students + 1);
+    return 0;
+}
+output
+wang
+
+Practice14:
+//喝汽水，1瓶汽水1元，2个空瓶可以换一瓶汽水，可以喝多少汽水(编程实现)。
+int main()
+{
+    int money = 0;
+    scanf("%d", &money);//20
+    int total = money;
+    int empty = money;
+    
+    //置换
+    while(empty>=2)
+    {
+       total + = (empty/2);
+       empty = empty / 2 + empty % 2;
+    }
+    printf("%d\n", total);
+    return 0;
+ }
+ output
+ 39
+ 
+ Practice15:
+ 写一个函数实现数组中奇数全部位于偶数前面
+ void move(int arr[], int sz)
+ {
+   int left = 0;
+   int right = sz - 1;
+   
+   while(left<right)
+   {
+     while((left < right) && arr[left] % 2 == 1)
+     {
+         left++;
+     }
+     while((left < right) && arr[right] % 2 == 0)
+     {
+         right--;
+     }
+     if(left < right)
+     {
+         int tmp = arr[left];
+         arr[left] = arr[right];
+         arr[right] = tmp;
+     }
+   }
+ }
+ int main()
+ {
+    int arr[10] = { 1,2,3,4,5,6,7,8,9,10 };
+    int sz = sizeof(arr) / sizeof(arr[0]);
+    return 0;
+ }
+ 
+ Practice16:
+ 求下列代码输出结果
+ int main()
+{
+     unsigned char a = 200;
+     //00000000000000000000000011001000
+     //11001000 - a
+     unsigned char a = 100;
+     //00000000000000000000000001100100
+     //01100100 - b
+     
+     unsigned chae c = 0;
+     
+     c = a + b;
+     //a和b都要发生整形提升
+     //存放到c中要发生截断的
+     //
+     //00000000000000000000000011001000
+     //00000000000000000000000001100100
+     //00000000000000000000000100101100
+     //
+     //00101100 - c
+     //00000000000000000000000000101100 刚好丢了一个"1"(256)
+     printf("%d %d", a + b, c);
+     return 0;
+}
+output
+300 44
+
+Practice17:
+求下列代码在32位大端模式处理器上的输出结果
+大端存储为把高位放在低地址处，把低位放在高地址处
+int main()
+{
+  unsigned int a = 0x1234;
+  unsigned char b = *(unsigned char *)&a;
+  return 0;
+}
+output:
+0x00
+
+Practice18:
+打印10*10的杨辉三角
+1
+1 1
+1 2 1
+1 3 3 1
+1 4 6 4 1
+1 5 10 10 5 1
+1 6 15 20 15 6 1
+1 7 21 35 35 21 7 1
+1 8 28 56 70 56 28 8 1
+1 9 36 84 126 126 84 36 9 1
+int main()
+{
+    int arr[10][10] = { 0 };
+    int i = 0;
+    //数组的初始化与赋值
+    for(i=0; i<10; i++)
+    {
+        int j = 0;
+        for(j=0; j<=i; j++)
+        {
+            if(j==0)
+                arr[i][j] = 1;
+            if(i==j)
+                arr[i][j] = 1;
+            if(i>=2 && j>=1)
+                arr[i][j] = arr[i-1][j-1] + arr[i-1][j];
+         //数组的打印
+            printf("%d ",arr[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+
+Practice19:
+某地发生了一件谋杀案，警察通过排查确定杀人凶手为4个嫌疑犯的一个
+A说:不是我。
+B说:是C。
+C说:是D。
+D说:C在胡说。
+已知3个人说了真话，1个人说了假话
+现在请根据这些信息，写一个程序来确定到底谁是凶手
+初步通过反证法发现C是凶手
+tips:程序输出1为真，0为假
+int main()
+{
+    int Murderer = 0;
+    //a b c d
+    for(Murderer='A';Murderer<='D';Murderer++)
+    {
+        if((Murderer != 'A') + (Murderer == 'C') + (Murderer == 'D') + (Murderer != 'D') == 3)
+        {
+             printf("%c\n", Murderer);
+        }        
+    }
+    return 0;
+}
+
+Practice20:
+5位运动员参加了10米台跳水比赛，有人让他们预测比赛结果:
+
+A选手说:B第二，我第三
+B选手说:我第二，E第四
+C选手说:我第一，D第二
+D选手说:C最后，我第三
+E选手说:我第四，A第一
+比赛结束后，每位选手都说对了一半，请编程确定比赛的名次
+int main()
+{
+    int a = 0;
+    int b = 0;
+    int c = 0;
+    int d = 0;
+    int e = 0;
+    for(a=1; a<=5; a++)
+    {
+        for(b=1; b<=5; b++)
+        {
+            for(c=1; c<=5; c++)
+            {
+                for(d=1; d<=5; d++)
+                {
+                     for(e=1; e<=5; e++)
+                     {
+                         if((b==2) + (a==3) == 1)&&
+                           ((b==2) + (e==4) == 1)&&
+                           ((c==1) + (d==2) == 1)&&
+                           ((c==5) + (d==3) == 1)&&
+                           ((e==4) + (a==1) == 1))
+                        {
+                            //1*2*3*4*5 = 120
+                            if(a*b*c*d*e == 120)
+                                printf("a=%d b=%d c=%d d=%d e=%d\n", a, b, c, d, e);
+                        }
+                     }
+                }
+            }
+        }
+    }
+    return 0;
+ }
