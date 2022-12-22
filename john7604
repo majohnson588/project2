@@ -399,6 +399,42 @@ int main()
     return 0;
 }
 
+数组传参和指针传参
+Example1:
+二维数组传参
+void test(int arr[3][5])
+{}
+void test(int arr[][5])
+{}
+void test(int arr[][])//err 二维数组不能省略“列”
+{}
+void test(int *arr)//err
+{}
+void test(int* arr[5])//err
+{}
+void test(int **arr)//err
+{}
+void test (int(*p)[5])
+{}
+int main()
+{
+    int arr[3][5] = {0};
+    test(arr);
+}
+Example2:
+二级指针传参
+void test(char ** ppc)
+{
+    ;
+}
+int main()
+{
+    char = 'a' ;
+    char* pa = &a;
+    char** ppa = &pa;//ppa就是一个二级指针
+    return 0;
+}
+
 函数指针数组
 Example:
 实现一个可以进行四则运算的计算器
