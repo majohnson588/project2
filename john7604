@@ -492,6 +492,37 @@ int main()
      }  while  (input);
       return 0;
   }
+  
+qsort排序
+struct Stu
+{
+      char name[20];
+      int age;
+      double score;
+};
+
+int cmp_stu_by_age(const void* e1, const void*e2)
+{
+      return ((struct Stu*)e1)->age - ((struct Stu*)e2)->age;
+}
+
+int cmp_stu_by_name(const void* e1, const void* e2)
+{
+      return strcmp(  ((struct Stu*)e1)->name, ((struct Stu*)e2)->name);
+}
+
+//abcdef
+//abq
+
+//使用qsort排序结构体
+void test3()
+{
+      struct Stu arr[3] = {  {"zhangsan", 20, 55.5},{"list", 30, 88.0},{"wangyu", 10, 90.0} };
+      int sz = sizeof(arr) / sizeof(arr[0]) ;
+      //qsort(arr, sz, sizeof(arr[0]), cmp_stu_by_age);
+      qsort(arr, sz, sizeof(arr[0]), cmp_stu_by_name);
+}
+
 Practice1:
 写一个函数统计二进制中1的个数
 A1:
